@@ -1,5 +1,8 @@
 package com.medhead.authservice.controller;
 
+import jakarta.validation.Valid;
+import org.springframework.security.authentication.BadCredentialsException;
+import com.medhead.authservice.exception.AuthenticationFailedException;
 import com.medhead.authservice.dto.JwtResponse;
 import com.medhead.authservice.dto.LoginRequest;
 import com.medhead.authservice.dto.RegisterRequest;
@@ -20,8 +23,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     public AuthController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
@@ -43,15 +49,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String jwtToken = jwtUtil.generateToken(userDetails);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwtToken = jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new JwtResponse(jwtToken));
+            return ResponseEntity.ok(new JwtResponse(jwtToken));
+        } catch (BadCredentialsException e) {
+            throw new AuthenticationFailedException("Invalid username or password");
+        }
     }
 
 }
