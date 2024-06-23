@@ -1,5 +1,6 @@
 package com.medhead.authservice.controller;
 
+import com.medhead.authservice.dto.RegisterRequest;
 import com.medhead.authservice.model.User;
 import com.medhead.authservice.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) {
+        if (userService.findByUsername(registerRequest.getUsername()) != null) {
+            return ResponseEntity.badRequest().body("Username already exists");
+        }
+        User user = new User();
+        user.setUsername(registerRequest.getUsername());
+        user.setPassword(registerRequest.getPassword());
         User createdUser = userService.createUser(user);
         return ResponseEntity.ok(createdUser);
     }
