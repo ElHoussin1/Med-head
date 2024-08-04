@@ -1,6 +1,6 @@
 package com.medhead.authservice.dto;
 
-public class JwtResponse {
+public class    JwtResponse {
     private String token;
 
     public JwtResponse(String token) {

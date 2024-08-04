@@ -25,5 +25,6 @@ public class HospitalController {
         } else {
             return ResponseEntity.noContent().build();
         }
+
     }
 }
