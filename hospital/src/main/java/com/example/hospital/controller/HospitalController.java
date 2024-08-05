@@ -25,6 +25,16 @@ public class HospitalController {
         } else {
             return ResponseEntity.noContent().build();
         }
+    }
 
+    @PostMapping("/reserve")
+    public ResponseEntity<Void> reserveBed(@RequestParam Long hospitalId,
+                                           @RequestParam Long departmentId) {
+        boolean success = hospitalService.reserveBed(hospitalId, departmentId);
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(409).build();
+        }
     }
 }

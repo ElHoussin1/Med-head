@@ -2,16 +2,22 @@ package com.example.hospital.service;
 
 import com.example.hospital.model.Hospital;
 import com.example.hospital.model.Department;
+import com.example.hospital.model.Reservation;
 import com.example.hospital.repository.HospitalRepository;
+import com.example.hospital.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class HospitalService {
     @Autowired
     private HospitalRepository hospitalRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     public Hospital findNearestHospitalWithAvailability(double userLat, double userLon, String departmentName) {
         List<Hospital> hospitals = hospitalRepository.findByDepartmentName(departmentName);
@@ -35,8 +41,31 @@ public class HospitalService {
         return nearestHospital;
     }
 
+    public boolean reserveBed(Long hospitalId, Long departmentId) {
+        Hospital hospital = hospitalRepository.findById(hospitalId).orElse(null);
+        if (hospital != null) {
+            Department department = hospital.getDepartments().stream()
+                    .filter(d -> d.getId().equals(departmentId))
+                    .findFirst()
+                    .orElse(null);
+
+            if (department != null && department.getAvailableBeds() > 0) {
+                Reservation reservation = new Reservation();
+                reservation.setHospital(hospital);
+                reservation.setDepartment(department);
+                reservation.setReservationTime(LocalDateTime.now());
+                reservationRepository.save(reservation);
+
+                department.setAvailableBeds(department.getAvailableBeds() - 1);
+                hospitalRepository.save(hospital);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
     private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        // Haversine formula to calculate the distance
         final int R = 6371; // Radius of the Earth in km
         double latDistance = Math.toRadians(lat2 - lat1);
         double lonDistance = Math.toRadians(lon2 - lon1);

@@ -9,6 +9,7 @@ public class HospitalResponseDTO {
     private String departmentName;
     private int availableBeds;
     private double distance;
+    private boolean canReserve;
 
     public HospitalResponseDTO(Hospital hospital, String departmentName) {
         this.name = hospital.getName();
@@ -22,49 +23,20 @@ public class HospitalResponseDTO {
 
         if (department != null) {
             this.availableBeds = department.getAvailableBeds();
+            this.canReserve = this.availableBeds > 0;
         }
 
         // Calculate distance here if needed
     }
 
     // Getters and setters
-    public String getName() {
-        return name;
+    // (existing getters and setters)
+
+    public boolean isCanReserve() {
+        return canReserve;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public int getAvailableBeds() {
-        return availableBeds;
-    }
-
-    public void setAvailableBeds(int availableBeds) {
-        this.availableBeds = availableBeds;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setCanReserve(boolean canReserve) {
+        this.canReserve = canReserve;
     }
 }
