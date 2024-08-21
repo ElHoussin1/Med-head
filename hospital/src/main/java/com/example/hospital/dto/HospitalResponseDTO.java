@@ -2,41 +2,39 @@ package com.example.hospital.dto;
 
 import com.example.hospital.model.Hospital;
 import com.example.hospital.model.Department;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class HospitalResponseDTO {
+    private Long id;
     private String name;
     private String address;
-    private String departmentName;
+    private double latitude;
+    private double longitude;
     private int availableBeds;
     private double distance;
-    private boolean canReserve;
 
-    public HospitalResponseDTO(Hospital hospital, String departmentName) {
+    public HospitalResponseDTO(Hospital hospital, String departmentName, double distance) {
+        this.id = hospital.getId();
         this.name = hospital.getName();
         this.address = hospital.getAddress();
-        this.departmentName = departmentName;
+        this.latitude = hospital.getLatitude();
+        this.longitude = hospital.getLongitude();
+        this.distance = distance;
 
         Department department = hospital.getDepartments().stream()
                 .filter(d -> d.getName().equals(departmentName))
                 .findFirst()
                 .orElse(null);
 
-        if (department != null) {
-            this.availableBeds = department.getAvailableBeds();
-            this.canReserve = this.availableBeds > 0;
-        }
-
-        // Calculate distance here if needed
+        this.availableBeds = department != null ? department.getAvailableBeds() : 0;
     }
 
-    // Getters and setters
-    // (existing getters and setters)
-
-    public boolean isCanReserve() {
-        return canReserve;
-    }
-
-    public void setCanReserve(boolean canReserve) {
-        this.canReserve = canReserve;
-    }
+    // Getters and setters...
 }
