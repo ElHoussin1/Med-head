@@ -13,7 +13,6 @@
 * [Exécuter les Tests](#exécuter-les-tests)
    * [Tests Frontend avec Robot Framework](#tests-frontend-avec-robot-framework)
 * [Intégration Continue](#intégration-continue)
-* [Contribuer](#contribuer)
 * [Licence](#licence)
 
 ## Introduction
