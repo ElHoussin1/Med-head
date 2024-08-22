@@ -40,21 +40,22 @@ public class HospitalService {
         return R * c;
     }
 
-    private static class HospitalDistance {
-        private final Hospital hospital;
-        private final double distance;
+    public static class HospitalDistance {
+    private final Hospital hospital;
+    private final double distance;
 
-        public HospitalDistance(Hospital hospital, double distance) {
-            this.hospital = hospital;
-            this.distance = distance;
-        }
-
-        public Hospital getHospital() {
-            return hospital;
-        }
-
-        public double getDistance() {
-            return distance;
-        }
+    public HospitalDistance(Hospital hospital, double distance) {
+        this.hospital = hospital;
+        this.distance = distance;
     }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+}
+
 }

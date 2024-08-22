@@ -1,0 +1,34 @@
+<div class="search-container">
+    <h2>Search for Nearest Hospitals</h2>
+    <form (submit)="searchHospitals(); $event.preventDefault()">
+      <div class="form-group">
+        <label for="lat">Latitude:</label>
+        <input type="number" id="lat" [(ngModel)]="lat" name="lat" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="lon">Longitude:</label>
+        <input type="number" id="lon" [(ngModel)]="lon" name="lon" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="limit">Number of Results:</label>
+        <input type="number" id="limit" [(ngModel)]="limit" name="limit" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  
+    <div *ngIf="hospitals.length > 0" class="results">
+      <h3>Available Hospitals</h3>
+      <ul class="list-group">
+        <li *ngFor="let hospital of hospitals" class="list-group-item">
+          <strong>{{ hospital.name }}</strong>
+          <p>{{ hospital.address }}</p>
+          <p><strong>Distance:</strong> {{ hospital.distance.toFixed(2) }} km</p>
+          <p><strong>Available Beds:</strong> {{ hospital.availableBeds }}</p>
+          <button (click)="makeReservation(hospital.id)" class="btn btn-success">Reserve a Bed</button>
+        </li>
+      </ul>
+    </div>
+  
+    <p *ngIf="hospitals.length === 0 && lat && lon">No hospitals found. Please adjust your search criteria.</p>
+  </div>
+  
