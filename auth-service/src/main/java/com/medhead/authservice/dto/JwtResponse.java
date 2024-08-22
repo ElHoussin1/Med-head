@@ -1,17 +1,13 @@
 package com.medhead.authservice.dto;
 
-public class    JwtResponse {
-    private String token;
+public class JwtResponse {
+    private final String jwt;
 
-    public JwtResponse(String token) {
-        this.token = token;
+    public JwtResponse(String jwt) {
+        this.jwt = jwt;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public String getJwt() {
+        return jwt;
     }
 }
