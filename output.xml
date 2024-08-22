@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.11.5 on win32)" generated="2024-08-22T06:42:31.228470" rpa="false" schemaversion="5">
+<suite id="s1" name="Login test" source="C:\Users\boubi\Desktop\alternance\projet\Med-head\Login_test.robot">
+<test id="s1-t1" name="Test Successful Login" line="15">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-08-22T06:42:31.416486" level="INFO">Opening browser 'chrome' to base url 'http://localhost:4200/login'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-08-22T06:42:31.415971" elapsed="2.723881"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2024-08-22T06:42:34.139852" elapsed="0.371602"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-08-22T06:42:34.514027" level="INFO">Typing text 'Hello' into text field '//input[@id='username']'.</msg>
+<arg>${USERNAME_FIELD}</arg>
+<arg>${USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-08-22T06:42:34.512694" elapsed="0.093290"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-08-22T06:42:34.606991" level="INFO">Typing text 'houssin' into text field '//input[@id='password']'.</msg>
+<arg>${PASSWORD_FIELD}</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-08-22T06:42:34.606991" elapsed="0.072155"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-08-22T06:42:34.680472" level="INFO">Clicking element '//button[@type='submit']'.</msg>
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-08-22T06:42:34.680472" elapsed="0.045620"/>
+</kw>
+<kw name="Wait Until Location Is" owner="SeleniumLibrary">
+<arg>${HOME_PAGE_URL}</arg>
+<arg>10s</arg>
+<doc>Waits until the current URL is ``expected``.</doc>
+<status status="PASS" start="2024-08-22T06:42:34.727853" elapsed="0.210695"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-08-22T06:42:34.939811" elapsed="2.176977"/>
+</kw>
+<doc>Test a successful login and check redirection to the home page</doc>
+<status status="PASS" start="2024-08-22T06:42:31.414941" elapsed="5.701847"/>
+</test>
+<status status="PASS" start="2024-08-22T06:42:31.234809" elapsed="5.883151"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Login test">Login test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
