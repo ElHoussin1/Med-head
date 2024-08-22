@@ -1,0 +1,40 @@
+name: Run Robot Framework Tests
+
+# Trigger the workflow on pushes to the repository or pull requests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2  # Checkout the code from the repository
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Specify the Python version
+
+    - name: Install dependencies
+      run: |
+        pip install robotframework
+        pip install robotframework-seleniumlibrary
+        pip install webdrivermanager  # Optional: to manage browser drivers
+        webdrivermanager chrome  # Install ChromeDriver for Chrome
+
+    - name: Run Robot Framework tests
+      run: |
+        robot --outputdir output tests/login_test.robot
+
+    - name: Archive test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: robot-test-results
+        path: output/
