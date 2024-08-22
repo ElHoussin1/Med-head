@@ -31,7 +31,7 @@ jobs:
 
     - name: Run Robot Framework tests
       run: |
-        robot --outputdir output tests/login_test.robot
+        robot --outputdir output tests/Login_test.robot
 
     - name: Archive test results
       uses: actions/upload-artifact@v2

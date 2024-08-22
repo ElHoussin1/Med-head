@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
-
+#test
 *** Variables ***
 ${URL}              http://localhost:4200/login  # URL of the login page
 ${BROWSER}          chrome                        # Browser to use
